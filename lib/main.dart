@@ -4,6 +4,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   static const String _title = 'Drawer en Flutter';
   // This widget is the root of your application.
   @override
@@ -21,14 +22,17 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       appBar: AppBar(
         title: Text('Actividad 3 Drawer Perez Rios'),
         backgroundColor: const Color(0xff764abc),
@@ -82,6 +86,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pop(context);
               },
             ),
+            AboutListTile(
+              // <-- SEE HERE
+              icon: Icon(
+                Icons.info,
+              ),
+              child: Text('Acerca de la app'),
+              applicationIcon: Icon(
+                Icons.local_play,
+              ),
+              applicationName: 'Mi Aplicacion Chida',
+              applicationVersion: '1.0.25',
+              applicationLegalese: '© 2019 Compañia',
+              aboutBoxChildren: [
+                ///Content goes here...
+              ],
+            ),
           ],
         ),
       ),
@@ -90,6 +110,15 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SizedBox(
               height: 50,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _key.currentState!.openDrawer(); //<-- SEE HERE
+              },
+              child: const Text(
+                'Boton elevado',
+                style: TextStyle(fontSize: 24),
+              ),
             ),
           ],
         ),
